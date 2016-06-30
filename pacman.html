@@ -62,7 +62,11 @@
 
 			var inky = {
 				x: 5,
-				y: 7
+				y: 7,
+				past:{
+					x:5,
+					y:7
+				}
 			};
 
 			if([pacman.y] == [ghost01.y] && [pacman.x] == [ghost01.x]){
@@ -130,6 +134,8 @@
 			var inkyChoices = wallCheck("inky");
 			var inkyMoveDir = Math.floor(Math.random()*inkyChoices.length);
 			var inkyDirection = inkyChoices[inkyMoveDir];
+			inky.past.x = inky.x;
+			inky.past.y = inky.y;
 			if (inkyDirection === "left"){
 				inky.x --; 
 			}else if(inkyDirection ==="right"){
@@ -140,26 +146,42 @@
 				inky.y ++;
 			}
 			console.log("its working!");
-
 			displayGhost01();
 			displayWorld();
 
 		}, 250);
 
 		function wallCheck(ghost){
-			console.log(this[ghost]);
+			var pastX = this[ghost].past.x;
+			var pastY = this[ghost].past.y;
 			var choices=[];
-			if (world[(this[ghost].y)][(this[ghost].x)-1] != 2){
-				choices.push("left");
+			if (world[(this[ghost].y)][(this[ghost].x)-1] != 2) {
+				if((this[ghost].y != pastY) || (this[ghost].x -1 != pastX)){
+					choices.push("left");
+				}else{
+					console.log("PAST!");
+				}	
 			}
 			if (world[(this[ghost].y)][(this[ghost].x)+1] != 2){
-				choices.push("right");
+				if((this[ghost].y != pastY) || (this[ghost].x +1 != pastX)){
+					choices.push("right");
+				}else{
+					console.log("PAST!");
+				}
 			}
 			if (world[(this[ghost].y-1)][(this[ghost].x)] != 2){
-				choices.push("up");
+				if((this[ghost].y -1 != pastY ) || (this[ghost].x != pastX)){
+					choices.push("up");
+				}else{
+					console.log("PAST!");
+				}
 			}
 			if (world[(this[ghost].y)+1][(this[ghost].x)] != 2){
-				choices.push("down");
+				if((this[ghost].y +1 != pastY) || (this[ghost].x != pastX)){
+					choices.push("down");
+				}else{
+					console.log("PAST!");
+				}
 			}
 			console.log(choices);
 			return choices;
