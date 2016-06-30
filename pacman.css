@@ -44,3 +44,12 @@ div#container{
 div#world{
 	font-size: 0px;
 }
+div#ghost01{
+	background-image: url('img/inky.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+}
