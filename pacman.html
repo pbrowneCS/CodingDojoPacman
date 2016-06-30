@@ -60,7 +60,7 @@
 				y: 12
 			};
 
-			var ghost01 = {
+			var inky = {
 				x: 5,
 				y: 7
 			};
@@ -93,8 +93,8 @@
 			}
 
 			function displayGhost01(){
-				document.getElementById('ghost01').style.top = ghost01.y*20+"px";
-				document.getElementById('ghost01').style.left = ghost01.x*20+"px";
+				document.getElementById('ghost01').style.top = inky.y*20+"px";
+				document.getElementById('ghost01').style.left = inky.x*20+"px";
 			}
 
 			displayWorld();
@@ -126,28 +126,45 @@
 				displayPacman();
 			}
 
-			setInterval(function(){ 
-				var blueYminus=ghost01.y-1;
-				var blueXminus=ghost01.x-1;
-				var blueYplus=ghost01.y+1;
-				var blueXplus=ghost01.x+1;
-				var ghostDirection=(Math.floor(Math.random() * 4) + 1);
-				if(ghostDirection == 1 && (world[ghost01.y][blueXminus]) != 2){
-					ghost01.x--;
-				}
-				if(ghostDirection == 2 && (world[ghost01.y][blueXplus]) != 2){
-					ghost01.x++;
-				} 
-				if(ghostDirection == 3 && (world[blueYminus][ghost01.x]) != 2){
-					ghost01.y--;
-				}
-				if(ghostDirection == 4 && (world[blueYplus][ghost01.x]) != 2){
-					ghost01.y++;
-				}
-				console.log(ghostDirection);
-				displayGhost01();
-			}, 300);
+		setInterval(function(){
+			var inkyChoices = wallCheck("inky");
+			var inkyMoveDir = Math.floor(Math.random()*inkyChoices.length);
+			var inkyDirection = inkyChoices[inkyMoveDir];
+			if (inkyDirection === "left"){
+				inky.x --; 
+			}else if(inkyDirection ==="right"){
+				inky.x ++;
+			}else if (inkyDirection === "up"){
+				inky.y --;
+			}else if (inkyDirection === "down"){
+				inky.y ++;
+			}
+			console.log("its working!");
 
+			displayGhost01();
+			displayWorld();
+
+		}, 250);
+
+		function wallCheck(ghost){
+			console.log(this[ghost]);
+			var choices=[];
+			if (world[(this[ghost].y)][(this[ghost].x)-1] != 2){
+				choices.push("left");
+			}
+			if (world[(this[ghost].y)][(this[ghost].x)+1] != 2){
+				choices.push("right");
+			}
+			if (world[(this[ghost].y-1)][(this[ghost].x)] != 2){
+				choices.push("up");
+			}
+			if (world[(this[ghost].y)+1][(this[ghost].x)] != 2){
+				choices.push("down");
+			}
+			console.log(choices);
+			return choices;
+		}
+			
 			// features
 			// move pacman left right up down
 				//both 'coin' and 'empty'
