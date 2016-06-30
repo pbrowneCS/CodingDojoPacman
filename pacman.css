@@ -1,0 +1,46 @@
+*{
+	vertical-align: baseline;
+	font-family: Verdana;
+	font-style: inherit;
+	font-size: inherit;
+	border: 0px none;
+/* 	outline: 1px dotted red; 0; */
+	padding: 0px;
+	margin: 0px; 
+}
+body{
+	background-color: black;
+}
+div.row div{
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+div.brick{
+	background-color: blue;
+}
+div.coin{
+	background-image: url('img/coin.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+div.empty{
+	
+}
+div#pacman{
+	background-image: url('img/pacman.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+}
+div#container{
+	font-size: 0px;
+	width: 200px;
+	margin: 0px 0px 0px 15px;
+}
+div#world{
+	font-size: 0px;
+}
