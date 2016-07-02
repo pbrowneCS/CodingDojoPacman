@@ -111,10 +111,12 @@
 			var score=0;
 			var winCondition=0;
 
+			//draws game board and counts the win condition
 			displayWorldInitial();
 			displayScore();
 			var ghostNameArr = ["blinky", "pinky", "inky", "clyde"]; //temp
 
+			//Loop runs the game, iterating every 150ms
 			var gameloop = setInterval(function(){
 				displayPacman();
 				if(pacman.direction!=""){
@@ -132,19 +134,23 @@
 		        			clearInterval(gameloop); //temp added for gameLoop
 		        		}
 		        	}
+		        	//blink and pinky move when the game starts
 					blinkySetPath();
 					ghostMove("blinky");
 					pinkySetPath();
 					ghostMove("pinky");
+					//inky moves when pacman has gained 30 score
 					if(score>=30){
 						inkySetPath();
 						ghostMove("inky");
 					}
+					//clyde moves when one third of the pellets have been collected
 					if(score>=winCondition/3){
 						clydeSetPath();
 						ghostMove("clyde");	
 					}
 				}
+				//refreshes the display
 				displayClyde();
 				displayBlinky();
 				displayPinky();
@@ -153,10 +159,11 @@
 				displayScore();
 			}, 150);
 
-
+			//player determines pacman direction with key input
 			document.onkeydown = function(e){
 				var choices = wallCheckPacman();
 				var tempDir ='';
+				//accepts all user direction inputs here
 				if(e.keyCode == 37){
 					tempDir = "left";
 				}
@@ -170,6 +177,8 @@
 					tempDir = "down";
 					
 				}
+				//checks if user input is a valid direction
+				//if not, pacman direction is not changed
 				for(var i=0;i<choices.length;i++){
 					if(tempDir == choices[i] && e.keyCode == 37){
 						pacman.direction = "left";
@@ -187,6 +196,7 @@
 				}
 			}
 
+			//moves pacman on the grid based on his current direction
 			function movePacman(){
 				pacman.past.x = pacman.x;
 				pacman.past.y = pacman.y;
@@ -213,6 +223,7 @@
 				}
 			}	
 
+			//draws the level and refreshes the tiles
 			function displayWorld(){
 				var output = '';
 				for (var i = 0; i < world.length; i++){
@@ -233,6 +244,7 @@
 				$('#scoreCounter').html('<h1 style="color: white">Score: ' + score + '</h1>');
 			}
 
+			//establishes the world and counts the win condition
 			function displayWorldInitial(){
             var output = '';
 
