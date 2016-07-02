@@ -1,70 +1,220 @@
 <head>
 	<title>Pacman!</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="bootstrap.css">
+	<!-- <link rel="stylesheet" type="text/css" href="bootstrap.css"> -->
 	<link rel="stylesheet" type="text/css" href="pacman.css">	
 	<script type="text/javascript" src="jquery-3.0.0.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
+			});
     </script>
 </head>
 <body>
-		<div id="container">
-			<div id="world" ></div>
+		<div class="wrapper">
+			<div id="world"></div>
 			<div id='pacman'></div>
-			<div id="ghost01"></div>
+			<div id="blinky"></div>
+			<div id="inky"></div>
+			<div id="pinky"></div>
+			<div id="clyde"></div>
+			<div id="scoreCounter"></div>
 		</div>
 		<script>
+
 			var world = [
-				[2,2,2,2,2,2,2,2,2,2,2],
-				[2,1,1,1,1,2,1,1,1,1,2],
-				[2,1,2,2,1,2,1,2,2,1,2],
-				[2,1,2,2,1,2,1,2,2,1,2],
-				[2,1,1,1,1,1,1,1,1,1,2],
-				[2,1,2,2,1,1,1,2,2,1,2],
-				[2,1,1,1,1,2,1,1,1,1,2],
-				[2,1,2,1,2,0,2,1,2,1,2],
-				[2,1,2,1,1,1,1,1,2,1,2],
-				[2,1,2,2,1,1,1,2,2,1,2],
-				[2,1,2,1,1,2,1,1,2,1,2],
-				[2,1,2,1,2,2,2,1,2,1,2],
-				[2,1,1,1,1,0,1,1,1,1,2],
-				[2,1,2,1,2,2,2,1,2,1,2],
-				[2,1,2,1,1,2,1,1,2,1,2],
-				[2,1,2,1,1,2,1,1,2,1,2],
-				[2,1,1,1,1,1,1,1,1,1,2],
-				[2,2,1,1,2,2,2,1,1,2,2],
-				[2,1,1,1,1,2,1,1,1,1,2],
-				[2,1,2,2,1,2,1,2,2,1,2],
-				[2,1,1,1,1,1,1,1,1,1,2],
-				[2,1,1,2,1,1,1,2,1,1,2],
-				[2,1,2,2,2,1,2,2,2,1,2],
-				[2,1,1,1,1,1,1,1,1,1,2],
-				[2,2,2,2,2,2,2,2,2,2,2]
-			];
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+	[2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2],
+	[2,1,2,2,2,2,1,2,2,2,2,2,1,2,2,1,2,2,2,2,2,1,2,2,2,2,1,2],
+	[2,1,2,2,2,2,1,2,2,2,2,2,1,2,2,1,2,2,2,2,2,1,2,2,2,2,1,2],
+	[2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2],
+	[2,1,2,2,2,2,1,2,2,1,2,2,2,2,2,2,2,2,1,2,2,1,2,2,2,2,1,2],
+	[2,1,2,2,2,2,1,2,2,1,2,2,2,2,2,2,2,2,1,2,2,1,2,2,2,2,1,2],
+	[2,1,1,1,1,1,1,2,2,1,1,1,1,2,2,1,1,1,1,2,2,1,1,1,1,1,1,2],
+	[2,2,2,2,2,2,1,2,2,2,2,2,0,2,2,0,2,2,2,2,2,1,2,2,2,2,2,2],
+	[0,0,0,0,0,2,1,2,2,2,2,2,0,2,2,0,2,2,2,2,2,1,2,0,0,0,0,0],
+	[0,0,0,0,0,2,1,2,2,0,0,0,0,0,0,0,0,0,0,2,2,1,2,0,0,0,0,0],
+	[0,0,0,0,0,2,1,2,2,0,2,2,2,2,2,2,2,2,0,2,2,1,2,0,0,0,0,0],
+	[0,0,0,0,0,2,1,0,0,0,2,2,2,2,2,2,2,2,0,0,0,1,2,0,0,0,0,0],
+	[2,2,2,2,2,2,1,2,2,0,2,2,2,2,2,2,2,2,0,2,2,1,2,2,2,2,2,2],
+	[0,0,0,0,0,2,1,2,2,0,2,2,2,2,2,2,2,2,0,2,2,1,2,0,0,0,0,0],
+	[0,0,0,0,0,2,1,2,2,0,0,0,0,0,0,0,0,0,0,2,2,1,2,0,0,0,0,0],
+	[0,0,0,0,0,2,1,2,2,0,2,2,2,2,2,2,2,2,0,2,2,1,2,0,0,0,0,0],
+	[2,2,2,2,2,2,1,2,2,0,2,2,2,2,2,2,2,2,0,2,2,1,2,2,2,2,2,2],
+	[2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2],
+	[2,1,2,2,2,2,1,2,2,2,2,2,1,2,2,1,2,2,2,2,2,1,2,2,2,2,1,2],
+	[2,1,2,2,2,2,1,2,2,2,2,2,1,2,2,1,2,2,2,2,2,1,2,2,2,2,1,2],
+	[2,1,2,2,2,2,1,2,2,2,2,2,1,2,2,1,2,2,2,2,2,1,2,2,2,2,1,2],
+	[2,1,1,1,2,2,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,2,2,1,1,1,2],
+	[2,2,2,1,2,2,1,2,2,1,2,2,2,2,2,2,2,2,1,2,2,1,2,2,1,2,2,2],
+	[2,2,2,1,2,2,1,2,2,1,2,2,2,2,2,2,2,2,1,2,2,1,2,2,1,2,2,2],
+	[2,1,1,1,1,1,1,2,2,1,1,1,1,2,2,1,1,1,1,2,2,1,1,1,1,1,1,2],
+	[2,1,2,2,2,2,2,2,2,2,2,2,1,2,2,1,2,2,2,2,2,2,2,2,2,2,1,2],
+	[2,1,2,2,2,2,2,2,2,2,2,2,1,2,2,1,2,2,2,2,2,2,2,2,2,2,1,2],
+	[2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2],
+	[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	];
 
-			var pacman = {
-				x: 5,
-				y: 12
-			};
-
-			var inky = {
-				x: 5,
-				y: 7,
+		ghostNameSpace = {
+			blinky: {
+				x: 13,
+				y: 13,
+				direction: "",
 				past:{
-					x:5,
-					y:7
+					x:13,
+					y:14
 				}
-			};
+			},
+			inky: {
+				x: 14,
+				y: 14,
+				direction: "",
+				past:{
+					x:14,
+					y:14
+				}
+			},
+			pinky: {
+				x: 14,
+				y: 13,
+				direction: "",
+				past:{
+					x:14,
+					y:13
+				}
+			},
+			clyde: {
+				x: 13,
+				y: 14,
+				direction: "",
+				past:{
+					x:13,
+					y:14
+				},
+				scatterTarget:[0,35]
+			}
+		};
 
-			if([pacman.y] == [ghost01.y] && [pacman.x] == [ghost01.x]){
-					alert("You Lose!");
+		pacman = {
+			x: 14,
+			y: 25,
+			direction: "",
+			past:{
+				x:14,
+				y:25
+			}
+		};
+			var score=0;
+			var winCondition=0;
+
+			displayWorldInitial();
+			displayScore();
+			var ghostNameArr = ["blinky", "pinky", "inky", "clyde"]; //temp
+
+			var gameloop = setInterval(function(){
+				displayPacman();
+				if(pacman.direction!=""){
+					movePacman();
+					displayPacman();
+					if(score==winCondition){
+						alert("You WIN! Click `Okay` and press CTRL+F5 to play again!");
+						clearInterval(gameloop);
+					}
+					// checkLose(); /temp disabled
+					// temp added to gameLoop
+		        	for(var i=0; i < ghostNameArr.length;i++){
+		        		if(ghostNameSpace[ghostNameArr[i]].x == pacman.x && ghostNameSpace[ghostNameArr[i]].y == pacman.y){
+		        			alert("You Lose! Click `Okay` and press CTRL+F5 to try again!");
+		        			clearInterval(gameloop); //temp added for gameLoop
+		        		}
+		        	}
+					blinkySetPath();
+					ghostMove("blinky");
+					pinkySetPath();
+					ghostMove("pinky");
+					if(score>=30){
+						inkySetPath();
+						ghostMove("inky");
+					}
+					if(score>=winCondition/3){
+						clydeSetPath();
+						ghostMove("clyde");	
+					}
 				}
+				displayClyde();
+				displayBlinky();
+				displayPinky();
+				displayInky();
+				displayWorld();
+				displayScore();
+			}, 150);
+
+
+			document.onkeydown = function(e){
+				var choices = wallCheckPacman();
+				var tempDir ='';
+				if(e.keyCode == 37){
+					tempDir = "left";
+				}
+				if(e.keyCode == 39){
+					tempDir = "right";
+				}
+				if(e.keyCode == 38){
+					tempDir = "up";
+				}
+				if(e.keyCode == 40){
+					tempDir = "down";
+					
+				}
+				for(var i=0;i<choices.length;i++){
+					if(tempDir == choices[i] && e.keyCode == 37){
+						pacman.direction = "left";
+						document.getElementById("pacman").style.transform = "rotate(180deg)";
+					} else if(tempDir == choices[i] && e.keyCode == 39){
+						pacman.direction = "right";
+						document.getElementById("pacman").style.transform = "rotate(0deg)";
+					} else if(tempDir == choices[i] && e.keyCode == 38){
+						pacman.direction = "up";
+						document.getElementById("pacman").style.transform = "rotate(270deg)";
+					} else if(tempDir == choices[i] && e.keyCode == 40){
+						pacman.direction = "down";
+						document.getElementById("pacman").style.transform = "rotate(90deg)";
+					}
+				}
+			}
+
+			function movePacman(){
+				pacman.past.x = pacman.x;
+				pacman.past.y = pacman.y;
+				var choices = wallCheckPacman();
+				for(var i=0; i<choices.length;i++){
+					if(choices[i] == pacman.direction){
+						if(pacman.direction == "left"){
+							pacman.x--;
+						}
+						if(pacman.direction == "right"){
+							pacman.x++;
+						}
+						if(pacman.direction == "up"){
+							pacman.y--;
+						}
+						if(pacman.direction == "down"){
+							pacman.y++;
+						}
+					}
+				}
+				if(world[pacman.y][pacman.x] == 1){
+					world[pacman.y][pacman.x] = 0;
+					score++;
+				}
+			}	
 
 			function displayWorld(){
 				var output = '';
-
 				for (var i = 0; i < world.length; i++){
 					output += "\n<div class='row'>\n";
 					for(var j = 0; j < world[i].length; j++){
@@ -77,109 +227,280 @@
 					}
 					output += "\n</div>";
 				}
-				// console.log(output);
 				document.getElementById('world').innerHTML = output;
 			}
+			function displayScore(){
+				$('#scoreCounter').html('<h1 style="color: white">Score: ' + score + '</h1>');
+			}
+
+			function displayWorldInitial(){
+            var output = '';
+
+            for (var i = 0; i < world.length; i++) {
+                output += "\n<div class='row'>\n"
+                for (var j = 0; j < world[i].length; j++) {
+                    if(world[i][j] == 0){
+                        output += "<div class='empty'></div>";
+                    }else if(world[i][j] == 2){
+                        output += "<div class='brick'></div>";
+                    }else if(world[i][j] == 1){
+                        output += "<div class='coin'></div>";
+                        winCondition++;
+                    }
+                }
+                output += "\n</div>";
+            }
+
+            document.getElementById('world').innerHTML = output;
+            console.log(winCondition);
+        }
+
+        // function checkLose(){
+        // 	var ghostNameArr = ["blinky", "pinky", "inky", "clyde"];
+        // 	for(var i=0; i < ghostNameArr.length;i++){
+        // 		if(ghostNameSpace[ghostNameArr[i]].x == pacman.x && ghostNameSpace[ghostNameArr[i]].y == pacman.y){
+        // 			alert("You Lose!");
+        // 		}
+        // 	}
+        // }
+
+
 			function displayPacman(){
-				document.getElementById('pacman').style.top = pacman.y*20+"px";
-				document.getElementById('pacman').style.left = pacman.x*20+"px";
+				document.getElementById('pacman').style.top = pacman.y*15+"px";
+				document.getElementById('pacman').style.left = pacman.x*15+"px";
 			}
 
-			function displayGhost01(){
-				document.getElementById('ghost01').style.top = inky.y*20+"px";
-				document.getElementById('ghost01').style.left = inky.x*20+"px";
+			function displayBlinky(){
+				document.getElementById('blinky').style.top = ghostNameSpace.blinky.y*15+"px";
+				document.getElementById('blinky').style.left = ghostNameSpace.blinky.x*15+"px";
 			}
 
-			displayWorld();
-			displayPacman();
-			displayGhost01();
-
-			document.onkeydown = function(e){
-				var blueYminus=pacman.y-1;
-				var blueXminus=pacman.x-1;
-				var blueYplus=pacman.y+1;
-				var blueXplus=pacman.x+1;
-				if(e.keyCode == 37 && (world[pacman.y][blueXminus]) != 2){
-					pacman.x--;
-					document.getElementById("pacman").style.transform = "rotate(180deg)";
-				} else if (e.keyCode == 39 && (world[pacman.y][blueXplus]) != 2){
-					pacman.x++;
-					document.getElementById("pacman").style.transform = "rotate(0deg)";
-				} else if (e.keyCode == 38 && (world[blueYminus][pacman.x]) != 2){
-					pacman.y--;
-					document.getElementById("pacman").style.transform = "rotate(270deg)";
-				} else if (e.keyCode == 40 && (world[blueYplus][pacman.x]) != 2){
-					pacman.y++;
-					document.getElementById("pacman").style.transform = "rotate(90deg)";
-				}
-				if(world[pacman.y][pacman.x] == 1){
-					world[pacman.y][pacman.x] = 0;
-				}
-				displayWorld();
-				displayPacman();
+			function displayPinky(){
+				document.getElementById('pinky').style.top = ghostNameSpace.pinky.y*15+"px";
+				document.getElementById('pinky').style.left = ghostNameSpace.pinky.x*15+"px";
 			}
 
-		setInterval(function(){
-			var inkyChoices = wallCheck("inky");
-			var inkyMoveDir = Math.floor(Math.random()*inkyChoices.length);
-			var inkyDirection = inkyChoices[inkyMoveDir];
-			inky.past.x = inky.x;
-			inky.past.y = inky.y;
-			if (inkyDirection === "left"){
-				inky.x --; 
-			}else if(inkyDirection ==="right"){
-				inky.x ++;
-			}else if (inkyDirection === "up"){
-				inky.y --;
-			}else if (inkyDirection === "down"){
-				inky.y ++;
+			function displayInky(){
+				document.getElementById('inky').style.top = ghostNameSpace.inky.y*15+"px";
+				document.getElementById('inky').style.left = ghostNameSpace.inky.x*15+"px";
 			}
-			console.log("its working!");
-			displayGhost01();
-			displayWorld();
+			function displayClyde(){
+				document.getElementById('clyde').style.top = ghostNameSpace.clyde.y*15+"px";
+				document.getElementById('clyde').style.left = ghostNameSpace.clyde.x*15+"px";
+			}
 
-		}, 250);
-
-		function wallCheck(ghost){
-			var pastX = this[ghost].past.x;
-			var pastY = this[ghost].past.y;
+		function wallCheckPacman(){
 			var choices=[];
-			if (world[(this[ghost].y)][(this[ghost].x)-1] != 2) {
-				if((this[ghost].y != pastY) || (this[ghost].x -1 != pastX)){
+			if (world[(pacman.y)][(pacman.x)-1] != 2) {
 					choices.push("left");
-				}else{
-					console.log("PAST!");
-				}	
 			}
-			if (world[(this[ghost].y)][(this[ghost].x)+1] != 2){
-				if((this[ghost].y != pastY) || (this[ghost].x +1 != pastX)){
+			if (world[(pacman.y)][(pacman.x)+1] != 2){
 					choices.push("right");
-				}else{
-					console.log("PAST!");
-				}
 			}
-			if (world[(this[ghost].y-1)][(this[ghost].x)] != 2){
-				if((this[ghost].y -1 != pastY ) || (this[ghost].x != pastX)){
+			if (world[(pacman.y-1)][(pacman.x)] != 2){
 					choices.push("up");
-				}else{
-					console.log("PAST!");
-				}
 			}
-			if (world[(this[ghost].y)+1][(this[ghost].x)] != 2){
-				if((this[ghost].y +1 != pastY) || (this[ghost].x != pastX)){
-					choices.push("down");
-				}else{
-					console.log("PAST!");
-				}
+			if (world[(pacman.y)+1][(pacman.x)] != 2){
+					choices.push("down");	
 			}
-			console.log(choices);
 			return choices;
 		}
 			
 			// features
-			// move pacman left right up down
-				//both 'coin' and 'empty'
-			// stop pacman from eating 'brick'
+			// DONE move pacman left right up down
+				//DONE both 'coin' and 'empty'
+			// DONE stop pacman from eating 'brick'
 			// count +1 for coin eaten
+			//move in direction specified
+
+
+		function ghostMove(ghost){
+			ghostNameSpace[ghost].past.x= ghostNameSpace[ghost].x;
+			ghostNameSpace[ghost].past.y= ghostNameSpace[ghost].y;
+			if (ghostNameSpace[ghost].direction == "left"){
+				ghostNameSpace[ghost].x--;
+			}if (ghostNameSpace[ghost].direction == "right"){
+				ghostNameSpace[ghost].x++;
+			}if (ghostNameSpace[ghost].direction == "up"){
+				ghostNameSpace[ghost].y--;
+			}if (ghostNameSpace[ghost].direction == "down"){
+				ghostNameSpace[ghost].y++;
+			}
+		}
+
+
+		//make ghost objects have a key of direction
+		// sets the direction key of the given ghost)
+		//ghostDirection must have been defined
+
+		function blinkySetPath(){
+			var choices = wallCheck("blinky");
+			if (choices.length >= 2){
+				ghostNameSpace.blinky.direction = intersectionMove("blinky", choices, pacman.x, pacman.y);
+			}else if (choices.length  == 1 && choices[0] != ghostNameSpace.blinky.direction){
+				ghostNameSpace.blinky.direction = choices[0];
+			}
+		}
+		function pinkySetPath(){
+			var targetTile = pinkySetTarget();
+			var pacX = targetTile[0];
+			var pacY = targetTile[1];
+			var choices = wallCheck("pinky");
+			if (choices.length >= 2){
+				ghostNameSpace.pinky.direction = intersectionMove("pinky",choices, pacX, pacY);
+			}else if (choices.length  == 1 && choices[0] != ghostNameSpace.pinky.direction){
+				ghostNameSpace.pinky.direction = choices[0];
+			}
+		}
+		function inkySetPath(){
+			var targetTile = inkySetTarget();
+			var pacX = targetTile[0];
+			var pacY = targetTile[1];
+			var choices = wallCheck("inky");
+			if (choices.length >= 2){
+				ghostNameSpace.inky.direction = intersectionMove("inky",choices, pacX, pacY);
+			}else if (choices.length  == 1 && choices[0] != ghostNameSpace.inky.direction){
+				ghostNameSpace.inky.direction = choices[0];
+			}
+		}
+		function clydeSetPath(){
+			var targetTile = clydeSetTarget();
+			var pacX = targetTile[0];
+			var pacY = targetTile[1];
+			var choices = wallCheck("clyde");
+			if (choices.length >= 2){
+				ghostNameSpace.clyde.direction = intersectionMove("clyde",choices, pacX, pacY);
+			}else if (choices.length  == 1 && choices[0] != ghostNameSpace.clyde.direction){
+				ghostNameSpace.clyde.direction = choices[0];
+			}
+		}
+
+		//determines the tile closest to pacman, and sets the movement direction to be closer to the target(pacman)
+		function intersectionMove(ghost, choices, pacX, pacY){
+			var ghostX = ghostNameSpace[ghost].x;
+			var ghostY = ghostNameSpace[ghost].y;
+			var direction = getMinimumDistanceDirection(choices, pacX ,pacY ,ghostX ,ghostY);
+			return direction;
+		}
+
+		function wallCheck(ghost){
+			var pastX = ghostNameSpace[ghost].past.x;
+			var pastY = ghostNameSpace[ghost].past.y;
+			var choices=[];
+			if (world[ghostNameSpace[ghost].y][ghostNameSpace[ghost].x -1] != 2) {
+				if((ghostNameSpace[ghost].y != pastY) || (ghostNameSpace[ghost].x -1 != pastX)){
+					choices.push("left");
+				}
+			}
+			if (world[ghostNameSpace[ghost].y][ghostNameSpace[ghost].x +1] != 2){
+				if((ghostNameSpace[ghost].y != pastY) || (ghostNameSpace[ghost].x +1 != pastX)){
+					choices.push("right");
+				}
+			}
+			if (world[ghostNameSpace[ghost].y -1][ghostNameSpace[ghost].x] != 2){
+				if((ghostNameSpace[ghost].y -1 != pastY ) || (ghostNameSpace[ghost].x != pastX)){
+					choices.push("up");
+				}
+			}
+			if (world[ghostNameSpace[ghost].y +1][ghostNameSpace[ghost].x] != 2){
+				if((ghostNameSpace[ghost].y +1 != pastY) || (ghostNameSpace[ghost].x != pastX)){
+					choices.push("down");
+				}
+			}
+			return choices;	
+		}
+
+		function getMinimumDistanceDirection(choices, pacX, pacY, ghostX, ghostY){
+			var minDist = 100;
+			var minDistDirection ="";
+			for (var i = 0; i < choices.length; i++) {
+				if (choices[i]=='left'){
+					ghostX--;
+					var distance = distanceBetween(pacX, pacY, ghostX, ghostY);
+					if (distance < minDist){
+						minDist = distance;
+						minDistDirection = choices[i];
+					}
+				}else if (choices[i]=='right'){
+					ghostX++;
+					var distance = distanceBetween(pacX, pacY, ghostX, ghostY);
+					if (distance < minDist){
+						minDist = distance;
+						minDistDirection = choices[i];
+					}
+				}else if (choices[i]=='up'){
+					ghostY--;
+					var distance = distanceBetween(pacX, pacY, ghostX, ghostY);
+					if (distance < minDist){
+						minDist = distance;
+						minDistDirection = choices[i];
+					}
+				}else if (choices[i]=='down'){
+					ghostY++;
+					var distance = distanceBetween(pacX, pacY, ghostX, ghostY);
+					if (distance < minDist){
+						minDist = distance;
+						minDistDirection = choices[i];
+					}
+				}
+			}
+			return minDistDirection;
+		}
+
+		function distanceBetween(pacX, pacY, ghostX, ghostY){
+			return Math.sqrt(((pacX-ghostX)*(pacX-ghostX))+((pacY-ghostY)*(pacY-ghostY)));
+		}
+
+		function pinkySetTarget(){
+			var target = [];
+			if (pacman.direction == "left"){
+				target = [pacman.x - 4, pacman.y];
+			}else if (pacman.direction == "right"){
+				target = [pacman.x + 4, pacman.y];
+			}else if (pacman.direction == "up"){
+				target = [pacman.y, pacman.y - 4];
+			}else if (pacman.direction == "down"){
+				target = [pacman.x, pacman.y + 4];
+			}
+			if(target[0] < 0){
+				target[0] = 0;
+			}
+			if(target[1] < 0){
+				target[1] = 0;
+			}
+			return target;
+		}
+
+		function inkySetTarget(){
+			var target = [];
+			var twoInFrontOfPacman = [];
+			if (pacman.direction == "left"){
+				twoInFrontOfPacman = [pacman.x - 2, pacman.y];
+			}else if (pacman.direction == "right"){
+				twoInFrontOfPacman = [pacman.x + 2, pacman.y];
+			}else if (pacman.direction == "up"){
+				twoInFrontOfPacman = [pacman.y, pacman.y - 2];
+			}else if (pacman.direction == "down"){
+				twoInFrontOfPacman = [pacman.x, pacman.y + 2];
+			}
+			if(twoInFrontOfPacman[0] < 0){
+				twoInFrontOfPacman[0] = 0;
+			}
+			if(twoInFrontOfPacman[1] < 0){
+				twoInFrontOfPacman[1] = 0;
+			}
+			target[0] = (ghostNameSpace.blinky.x + 2*(twoInFrontOfPacman[0]-ghostNameSpace.blinky.x));
+			target[1] = (ghostNameSpace.blinky.y + 2*(twoInFrontOfPacman[1]-ghostNameSpace.blinky.y));
+			return target;
+		}
+
+		function clydeSetTarget(){
+			var target = [pacman.x, pacman.y]
+			if (Math.sqrt((pacman.x - ghostNameSpace.clyde.x)*(pacman.x - ghostNameSpace.clyde.x)) + ((pacman.y - ghostNameSpace.clyde.y)*(pacman.y - ghostNameSpace.clyde.y)) >= 8){
+				return target;
+			} else{
+				return ghostNameSpace.clyde.scatterTarget;
+			}
+		}
 		</script>
 </body>

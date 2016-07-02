@@ -11,29 +11,32 @@
 body{
 	background-color: black;
 }
-div.row div{
-	width: 20px;
-	height: 20px;
-	display: inline-block;
-}
 div.brick{
 	background-color: blue;
+	height: 15px;
+	width: 15px;
+	display: inline-block;
 }
 div.coin{
-	background-image: url('img/coin.gif');
+	background-image: url('img/pellet.png');
 	background-repeat: no-repeat;
 	background-position: center;
+	height: 15px;
+	width: 15px;
+	display: inline-block;
 }
 div.empty{
-	
+	height: 15px;	
+	width: 15px;
+	display: inline-block;
 }
 div#pacman{
 	background-image: url('img/pacman.gif');
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-	width: 20px;
-	height: 20px;
+	width: 15px;
+	height: 15px;
 	position: absolute;
 }
 div#container{
@@ -44,12 +47,42 @@ div#container{
 div#world{
 	font-size: 0px;
 }
-div#ghost01{
+div#inky{
 	background-image: url('img/inky.gif');
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-	width: 20px;
-	height: 20px;
+	width: 15px;
+	height: 15px;
 	position: absolute;
+}
+div#blinky{
+	background-image: url('img/blinky.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	width: 15px;
+	height: 15px;
+	position: absolute;
+}
+div#pinky{
+	background-image: url('img/pinky.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	width: 15px;
+	height: 15px;
+	position: absolute;
+}
+div#clyde{
+	background-image: url('img/clyde.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	width: 15px;
+	height: 15px;
+	position: absolute;
+}
+div#wrapper{
+	position: relative;
 }
